@@ -5,7 +5,7 @@ Minio 開啟 port 9000 & 9090
   cd ./minio
   sh minio.sh  
 ```
-## Minio
+## FTP
 使用docker compose up 啟動寫好的docker-compose.yml
 其中設定port為21，帳號user以及密碼123456，因為使用同一台機器進行測試所以使用localhost即可。
 以下route為從本地端資料夾上傳檔案至FTP
