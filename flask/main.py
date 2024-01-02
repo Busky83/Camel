@@ -1,7 +1,7 @@
 from flask import Flask, request
 from config import app_config
 from app.models import db, AlterData
-from sqlalchemy.sql import text
+from gevent import pywsgi
 import json
 
 db_config = app_config.POSTGRES
@@ -40,4 +40,6 @@ def insertAlter():
     return "ok"
 
 if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0', port=5500)
+    server = pywsgi.WSGIServer(('0.0.0.0', 5500), app)
+    server.serve_forever()
+    # app.run(debug=True, host='0.0.0.0', port=5500)
