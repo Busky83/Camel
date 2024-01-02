@@ -4,11 +4,11 @@ from datetime import datetime
 db = SQLAlchemy()
 
 class AlterData(db.Model):
-    __tablename__='alterData'
-    no = db.Column('No', db.Integer, primary_key=True)
-    uuid = db.Column('UUID', db.String)
-    temperature = db.Column('Temperature', db.Integer)
-    create_dt = db.Column('CreateDt', db.DateTime)
+    __tablename__='alterdata'
+    no = db.Column('no', db.Integer, primary_key=True)
+    uuid = db.Column('uuid', db.String)
+    temperature = db.Column('temperature', db.Integer)
+    create_dt = db.Column('createdt', db.DateTime)
 
     def from_dict(self, data):
         self.uuid = data.get('uuid')
