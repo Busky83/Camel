@@ -53,10 +53,10 @@ public class MyRouteBuilder extends RouteBuilder {
 
         // MQTT to Django
         from("mqtt:foo?host=tcp://mosquitto:1883&subscribeTopicName=Try/MQTT")
-            .log("MQTT message received: ${body}");
+            .log("MQTT message received: ${body}")
             // .to("direct:mqtt");
-            //.to("http4://localhost:80/sea/v1/test/")
-            //.log("Response from Django API: ${body}");
+            .to("http4://10.109.101.74:5500/insertAlter")
+            .log("Response from Flask API: ${body}");
     }
 
 }
