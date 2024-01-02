@@ -16,3 +16,6 @@ class AlterData(db.Model):
         if data.get('timestamp'):
             self.create_dt = datetime.strptime(data.get('timestamp'), '%Y-%m-%dT%H:%M:%S')
         return self
+    
+    def __repr__(self):
+        return '<UUID %r>' % self.uuid
