@@ -1,0 +1,290 @@
+[
+    {
+        "Id": "b7e9bedea2fa1f5f418ffb4d8ae239d5a837f9af5692c4f6f5746b1f095adca1",
+        "Created": "2024-01-02T16:17:04.12656649Z",
+        "Path": "/usr/bin/docker-entrypoint.sh",
+        "Args": [
+            "server",
+            "/data",
+            "--console-address",
+            ":9000",
+            "--address",
+            ":9090"
+        ],
+        "State": {
+            "Status": "running",
+            "Running": true,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 94358,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2024-01-02T16:17:04.552572408Z",
+            "FinishedAt": "0001-01-01T00:00:00Z"
+        },
+        "Image": "sha256:53ce5b43b10dadb86fc61b34a98a1b7bae8e5c1e06acc806e66455614bbe407f",
+        "ResolvConfPath": "/var/lib/docker/containers/b7e9bedea2fa1f5f418ffb4d8ae239d5a837f9af5692c4f6f5746b1f095adca1/resolv.conf",
+        "HostnamePath": "/var/lib/docker/containers/b7e9bedea2fa1f5f418ffb4d8ae239d5a837f9af5692c4f6f5746b1f095adca1/hostname",
+        "HostsPath": "/var/lib/docker/containers/b7e9bedea2fa1f5f418ffb4d8ae239d5a837f9af5692c4f6f5746b1f095adca1/hosts",
+        "LogPath": "/var/lib/docker/containers/b7e9bedea2fa1f5f418ffb4d8ae239d5a837f9af5692c4f6f5746b1f095adca1/b7e9bedea2fa1f5f418ffb4d8ae239d5a837f9af5692c4f6f5746b1f095adca1-json.log",
+        "Name": "/minio",
+        "RestartCount": 0,
+        "Driver": "overlay2",
+        "Platform": "linux",
+        "MountLabel": "",
+        "ProcessLabel": "",
+        "AppArmorProfile": "",
+        "ExecIDs": null,
+        "HostConfig": {
+            "Binds": [
+                "/Users/chouchengyan/研究所/分散式系統/HW/Final-Project/git-camel/minio/minio_config:/root/.minio",
+                "/Users/chouchengyan/研究所/分散式系統/HW/Final-Project/git-camel/minio/minio_data:/data"
+            ],
+            "ContainerIDFile": "",
+            "LogConfig": {
+                "Type": "json-file",
+                "Config": {}
+            },
+            "NetworkMode": "default",
+            "PortBindings": {
+                "9000/tcp": [
+                    {
+                        "HostIp": "",
+                        "HostPort": "9000"
+                    }
+                ],
+                "9090/tcp": [
+                    {
+                        "HostIp": "",
+                        "HostPort": "9090"
+                    }
+                ]
+            },
+            "RestartPolicy": {
+                "Name": "always",
+                "MaximumRetryCount": 0
+            },
+            "AutoRemove": false,
+            "VolumeDriver": "",
+            "VolumesFrom": null,
+            "ConsoleSize": [
+                22,
+                120
+            ],
+            "CapAdd": null,
+            "CapDrop": null,
+            "CgroupnsMode": "private",
+            "Dns": [],
+            "DnsOptions": [],
+            "DnsSearch": [],
+            "ExtraHosts": null,
+            "GroupAdd": null,
+            "IpcMode": "private",
+            "Cgroup": "",
+            "Links": null,
+            "OomScoreAdj": 0,
+            "PidMode": "",
+            "Privileged": false,
+            "PublishAllPorts": false,
+            "ReadonlyRootfs": false,
+            "SecurityOpt": null,
+            "UTSMode": "",
+            "UsernsMode": "",
+            "ShmSize": 67108864,
+            "Runtime": "runc",
+            "Isolation": "",
+            "CpuShares": 0,
+            "Memory": 0,
+            "NanoCpus": 0,
+            "CgroupParent": "",
+            "BlkioWeight": 0,
+            "BlkioWeightDevice": [],
+            "BlkioDeviceReadBps": [],
+            "BlkioDeviceWriteBps": [],
+            "BlkioDeviceReadIOps": [],
+            "BlkioDeviceWriteIOps": [],
+            "CpuPeriod": 0,
+            "CpuQuota": 0,
+            "CpuRealtimePeriod": 0,
+            "CpuRealtimeRuntime": 0,
+            "CpusetCpus": "",
+            "CpusetMems": "",
+            "Devices": [],
+            "DeviceCgroupRules": null,
+            "DeviceRequests": null,
+            "MemoryReservation": 0,
+            "MemorySwap": 0,
+            "MemorySwappiness": null,
+            "OomKillDisable": null,
+            "PidsLimit": null,
+            "Ulimits": null,
+            "CpuCount": 0,
+            "CpuPercent": 0,
+            "IOMaximumIOps": 0,
+            "IOMaximumBandwidth": 0,
+            "MaskedPaths": [
+                "/proc/asound",
+                "/proc/acpi",
+                "/proc/kcore",
+                "/proc/keys",
+                "/proc/latency_stats",
+                "/proc/timer_list",
+                "/proc/timer_stats",
+                "/proc/sched_debug",
+                "/proc/scsi",
+                "/sys/firmware"
+            ],
+            "ReadonlyPaths": [
+                "/proc/bus",
+                "/proc/fs",
+                "/proc/irq",
+                "/proc/sys",
+                "/proc/sysrq-trigger"
+            ]
+        },
+        "GraphDriver": {
+            "Data": {
+                "LowerDir": "/var/lib/docker/overlay2/7c6476e6c9702cf1c909ee4532d5ba690e32a9dd042b9ffee9651d3d66ef39ca-init/diff:/var/lib/docker/overlay2/7d69b3cd3d4a3c418bbcf3e17ddc05f76bc69b67da99f6a37b552d6f19aa5b77/diff:/var/lib/docker/overlay2/a274dc9f4055c4609deb1a4b5a953da7282f33d1df289395b06984e381135259/diff:/var/lib/docker/overlay2/3ef3bc6adcaa233ef6ff379adaf2756a424a55b92f33d4f5190fc0dac1b78490/diff:/var/lib/docker/overlay2/4d2c7f9d46bf4e9bd5a2805edb8b8f41f5592d6ae903f722eb19ea4ee22864ab/diff:/var/lib/docker/overlay2/60988615830b514e52f06dd8a7a99989f720b1d3bcafe3cc742c525210ce1b09/diff:/var/lib/docker/overlay2/f85c73d89ed8c14958aa597d5ab69d5dbdda97b9526ee6dfc61067604975d419/diff:/var/lib/docker/overlay2/1c7a7706f95e3a892188e62b4f960b6481ab66e3d5e24c3f64a2c46ea510a21e/diff:/var/lib/docker/overlay2/8d11815abd20c6b690ac3160ff1911affe1d0ed5187974c005f7dfc1d8507021/diff",
+                "MergedDir": "/var/lib/docker/overlay2/7c6476e6c9702cf1c909ee4532d5ba690e32a9dd042b9ffee9651d3d66ef39ca/merged",
+                "UpperDir": "/var/lib/docker/overlay2/7c6476e6c9702cf1c909ee4532d5ba690e32a9dd042b9ffee9651d3d66ef39ca/diff",
+                "WorkDir": "/var/lib/docker/overlay2/7c6476e6c9702cf1c909ee4532d5ba690e32a9dd042b9ffee9651d3d66ef39ca/work"
+            },
+            "Name": "overlay2"
+        },
+        "Mounts": [
+            {
+                "Type": "bind",
+                "Source": "/Users/chouchengyan/研究所/分散式系統/HW/Final-Project/git-camel/minio/minio_config",
+                "Destination": "/root/.minio",
+                "Mode": "",
+                "RW": true,
+                "Propagation": "rprivate"
+            },
+            {
+                "Type": "bind",
+                "Source": "/Users/chouchengyan/研究所/分散式系統/HW/Final-Project/git-camel/minio/minio_data",
+                "Destination": "/data",
+                "Mode": "",
+                "RW": true,
+                "Propagation": "rprivate"
+            }
+        ],
+        "Config": {
+            "Hostname": "b7e9bedea2fa",
+            "Domainname": "",
+            "User": "",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "ExposedPorts": {
+                "9000/tcp": {},
+                "9090/tcp": {}
+            },
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "MINIO_ACCESS_KEY=minio",
+                "MINIO_SECRET_KEY=minio@123",
+                "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "MINIO_ACCESS_KEY_FILE=access_key",
+                "MINIO_SECRET_KEY_FILE=secret_key",
+                "MINIO_ROOT_USER_FILE=access_key",
+                "MINIO_ROOT_PASSWORD_FILE=secret_key",
+                "MINIO_KMS_SECRET_KEY_FILE=kms_master_key",
+                "MINIO_UPDATE_MINISIGN_PUBKEY=RWTx5Zr1tiHQLwG9keckT0c45M3AGeHD6IvimQHpyRywVWGbP1aVSGav",
+                "MINIO_CONFIG_ENV_FILE=config.env",
+                "MC_CONFIG_DIR=/tmp/.mc"
+            ],
+            "Cmd": [
+                "server",
+                "/data",
+                "--console-address",
+                ":9000",
+                "--address",
+                ":9090"
+            ],
+            "Image": "yenchou/camel.minio",
+            "Volumes": {
+                "/data": {}
+            },
+            "WorkingDir": "",
+            "Entrypoint": [
+                "/usr/bin/docker-entrypoint.sh"
+            ],
+            "OnBuild": null,
+            "Labels": {
+                "architecture": "x86_64",
+                "build-date": "2023-12-07T06:07:13",
+                "com.redhat.component": "ubi9-micro-container",
+                "com.redhat.license_terms": "https://www.redhat.com/en/about/red-hat-end-user-license-agreements#UBI",
+                "description": "MinIO object storage is fundamentally different. Designed for performance and the S3 API, it is 100% open-source. MinIO is ideal for large, private cloud environments with stringent security requirements and delivers mission-critical availability across a diverse range of workloads.",
+                "distribution-scope": "public",
+                "io.buildah.version": "1.29.0",
+                "io.k8s.description": "Very small image which doesn't install the package manager.",
+                "io.k8s.display-name": "Ubi9-micro",
+                "io.openshift.expose-services": "",
+                "maintainer": "MinIO Inc \u003cdev@min.io\u003e",
+                "name": "MinIO",
+                "release": "RELEASE.2023-12-23T07-19-11Z",
+                "summary": "MinIO is a High Performance Object Storage, API compatible with Amazon S3 cloud storage service.",
+                "url": "https://access.redhat.com/containers/#/registry.access.redhat.com/ubi9/ubi-micro/images/9.3-9",
+                "vcs-ref": "7c8efa4a6b572674bf941c8ad74c59eb3ac8b9df",
+                "vcs-type": "git",
+                "vendor": "MinIO Inc \u003cdev@min.io\u003e",
+                "version": "RELEASE.2023-12-23T07-19-11Z"
+            }
+        },
+        "NetworkSettings": {
+            "Bridge": "",
+            "SandboxID": "23bbf38a10b7c041edcea5b8c9ba0d3cf996304bee7d6ccdaef493818ae4e88e",
+            "HairpinMode": false,
+            "LinkLocalIPv6Address": "",
+            "LinkLocalIPv6PrefixLen": 0,
+            "Ports": {
+                "9000/tcp": [
+                    {
+                        "HostIp": "0.0.0.0",
+                        "HostPort": "9000"
+                    }
+                ],
+                "9090/tcp": [
+                    {
+                        "HostIp": "0.0.0.0",
+                        "HostPort": "9090"
+                    }
+                ]
+            },
+            "SandboxKey": "/var/run/docker/netns/23bbf38a10b7",
+            "SecondaryIPAddresses": null,
+            "SecondaryIPv6Addresses": null,
+            "EndpointID": "85f2df78d5586957fe242caa79b6bf55d2f8cc5b6f4c1dc0668f51e0d2a6bfa9",
+            "Gateway": "172.17.0.1",
+            "GlobalIPv6Address": "",
+            "GlobalIPv6PrefixLen": 0,
+            "IPAddress": "172.17.0.2",
+            "IPPrefixLen": 16,
+            "IPv6Gateway": "",
+            "MacAddress": "02:42:ac:11:00:02",
+            "Networks": {
+                "bridge": {
+                    "IPAMConfig": null,
+                    "Links": null,
+                    "Aliases": null,
+                    "NetworkID": "cca63a620648f95c5229109b53dd9d231d4095ffc2af3daa7218460bb9c3e47d",
+                    "EndpointID": "85f2df78d5586957fe242caa79b6bf55d2f8cc5b6f4c1dc0668f51e0d2a6bfa9",
+                    "Gateway": "172.17.0.1",
+                    "IPAddress": "172.17.0.2",
+                    "IPPrefixLen": 16,
+                    "IPv6Gateway": "",
+                    "GlobalIPv6Address": "",
+                    "GlobalIPv6PrefixLen": 0,
+                    "MacAddress": "02:42:ac:11:00:02",
+                    "DriverOpts": null
+                }
+            }
+        }
+    }
+]
