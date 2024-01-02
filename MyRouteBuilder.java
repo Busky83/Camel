@@ -57,6 +57,12 @@ public class MyRouteBuilder extends RouteBuilder {
             // .to("direct:mqtt");
             .to("http4://10.109.101.74:5500/insertAlter")
             .log("Response from Flask API: ${body}");
+        
+        // FTP
+        from("file:target/upload?moveFailed=../error")
+            .log("Uploading file ${file:name}")
+            .to("ftp://pure-ftpd:21/?autoCreate=false&username=user&password=123456&binary=true")
+            .log("Uploaded file ${file:name} complete.");  
     }
 
 }
