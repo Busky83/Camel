@@ -1,17 +1,39 @@
 version: '3'
 services:
-  camel:
-    image: gondor32/maven-camel
-    networks:
-      - mynetwork
 
   mosquitto:
-    image: arm64v8/eclipse-mosquitto
+    image: eclipse-mosquitto
+    command: mosquitto -c /mosquitto-no-auth.conf
+    networks:
+      - mynetwork
+  #  ports:
+  #    - "1883:1883"
+    #command: /bin/sh -c "sleep 10 && mosquitto_pub -h camel -t mytopic -m 'Hello from Mosquitto'"
+
+  camel:
+    image: gondor32/camel-maven:v4
+    volumes:
+      - ./pom.xml:/root/camel_final/camel_pro/pom.xml
+      - ./MyRouteBuilder.java:/root/camel_final/camel_pro/src/main/java/com/example/MyRouteBuilder.java
+    tty: true
+    working_dir: /root/camel_final/camel_pro
+    command: mvn compile exec:java
+    #command: cd /root/camel_final/camel_pro
+    networks:
+      - mynetwork
+    depends_on:
+      - mosquitto
+
+  mqtt:
+    build: 
+      context: ./
+      dockerfile: Dockerfile.mqtt
     networks:
       - mynetwork
     #command: /bin/sh -c "sleep 10 && mosquitto_pub -h camel -t mytopic -m 'Hello from Mosquitto'"
-    #depends_on:
-    #  - camel
+    depends_on:
+     - camel
+     - mosquitto
 
 networks:
   mynetwork:
