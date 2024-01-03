@@ -26,6 +26,8 @@ def getAlter():
 def insertAlter():
     if request.is_json:
         data = request.get_json()
+        if type(data) == str:
+            data = json.loads(data)
         row = AlterData().from_dict(data)
         db.session.add(row)
         db.session.commit()
