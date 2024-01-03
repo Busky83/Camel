@@ -51,4 +51,6 @@ Minio 設定帳號密碼為minio/minio@123、開啟port 9000 & 9090（以上皆�
       <artifactId>camel-ftp</artifactId>
   </dependency>  
 ```
-
+## JMX
+docker-compose-camel.yml中有設定MAVEN_OPTS，並且針對jmx服務設定port 8082。
+在本地端開啟jconsole(/jdk/bin/jconsole.exe)，並且在Remote Process輸入localhost:8082，即可查看camel狀態。
