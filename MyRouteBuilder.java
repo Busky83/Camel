@@ -8,6 +8,19 @@ import java.io.InputStream;
 import java.io.FileOutputStream;
 import io.minio.errors.MinioException;
 import io.minio.GetObjectArgs;
+import java.security.InvalidKeyException;
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import io.minio.errors.InsufficientDataException;
+import io.minio.errors.InternalException;
+import io.minio.errors.InvalidResponseException;
+import io.minio.errors.ServerException;
+import io.minio.errors.XmlParserException;
+import io.minio.errors.ErrorResponseException;
+import io.minio.UploadObjectArgs;
+import io.minio.BucketExistsArgs;
+import io.minio.MakeBucketArgs;
+
 
 import java.lang.management.ManagementFactory;
 
@@ -124,7 +137,7 @@ public class MyRouteBuilder extends RouteBuilder {
             .to("direct:minioToLocal");
 
         // Minio Upload
-        from("file:C:/path/to/local/directory?noop=true") 
+        from("file:target/upload?noop=true") 
             .process(exchange -> {
                 String filePath = exchange.getIn().getHeader("CamelFileAbsolutePath", String.class);
                 uploadToMinio(filePath);
@@ -147,10 +160,10 @@ public class MyRouteBuilder extends RouteBuilder {
                     .build();
 
             // 检查 Bucket 是否存在，如果不存在则创建
-            boolean bucketExists = minioClient.bucketExists(bucketName);
-            if (!bucketExists) {
-                minioClient.makeBucket(bucketName);
-            }
+            // boolean bucketExists = minioClient.bucketExists(BucketExistsArgs.builder().bucket(bucketName).build());
+            // if (!bucketExists) {
+            //     minioClient.makeBucket(MakeBucketArgs.builder().bucket(bucketName).build());
+            // }
 
             // 上传文件
             minioClient.uploadObject(
