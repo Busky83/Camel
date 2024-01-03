@@ -4,6 +4,12 @@ import org.apache.camel.builder.RouteBuilder;
 import io.minio.MinioClient;
 import org.apache.camel.model.dataformat.JsonLibrary;
 
+import java.io.InputStream;
+import java.io.FileOutputStream;
+import io.minio.errors.MinioException;
+import io.minio.GetObjectArgs;
+
+
 /**
  * A Camel Java DSL Router
  */
