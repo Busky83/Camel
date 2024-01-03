@@ -35,29 +35,8 @@ public class MyRouteBuilder extends RouteBuilder {
         // Timer
         from("timer:foo?period=5000")
             // .log("start");
-            .log("Hello 2026!");
-        
-        // Restful API
-        // rest("/api")
-        //     .get("/sea/v2/seascore/test_jude_1/")
-        //         .to("direct:Rest hello");
-        
-        // from("direct:Rest hello")
-        //     .transform().constant("Hello, RESTful World!")
-        //     .log("Response from RESTful API: ${body}");
+            .log("Hello World!");
 
-        // from("direct:start")
-        //     .to("http4://localhost:80/sea/v2/seascore/test_jude_1/1")
-        //     .log("Response from Django API: ${body}");
-
-        // To django api
-        // from("timer:foo?period=10000")
-        //     .log("Start request Django API")
-        //     .to("http4://localhost:80/sea/v2/test")
-        //     .log("Response from Django API: ${body}");
-
-        // from("http4://localhost:80/sea/v2/seascore/test_jude_1/1")
-        //     .log("Response from Django API: ${body}");
 
         // From MQTT
         from("mqtt:foo?host=tcp://mosquitto:1883&subscribeTopicName=Try/MQTT")
@@ -66,7 +45,7 @@ public class MyRouteBuilder extends RouteBuilder {
             .unmarshal().json(JsonLibrary.Jackson)
             .setProperty("uuid").simple("${body[uuid]}")
             .marshal().json(JsonLibrary.Jackson)
-            .to("http4://10.109.101.74:5500/insertAlter")
+            .to("http4://192.168.1.123:5500/insertAlter")
             .log("Response from Flask API: ${body}")
             .setBody().exchangeProperty("originalBody")
             .unmarshal().json(JsonLibrary.Jackson)
@@ -81,12 +60,12 @@ public class MyRouteBuilder extends RouteBuilder {
             .log("Uploaded file ${file:name} complete.");  
 
         // Minio
-        String endpoint = "http://localhost:9000";
+        String endpoint = "http://192.168.1.123:9090";
         String accessKey = "minio";
         String secretKey = "minio@123";
         String bucketName = "camel";
         String objectName = "example.txt";
-        String localDirectory = "D:/test";
+        String localDirectory = "/tmp";
         MinioClient minioClient = new MinioClient.Builder()
             .endpoint(endpoint)
             .credentials(accessKey, secretKey)
