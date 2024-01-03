@@ -29,10 +29,7 @@ import javax.management.ObjectName;
 
 import org.apache.camel.builder.RouteBuilder;
 
-import java.rmi.registry.LocateRegistry;
-import javax.management.remote.JMXServiceURL;
-import javax.management.remote.JMXConnectorServer;
-import javax.management.remote.JMXConnectorServerFactory;
+
 /**
  * A Camel Java DSL Router
  */
@@ -41,21 +38,6 @@ public class MyRouteBuilder extends RouteBuilder {
     /**
      * Let's configure the Camel routing rules using Java code...
      */
-    private SimpleBean bean;
-    private MBeanServer server;
-
-    public MyRouteBuilder() throws Exception {
-        server = ManagementFactory.getPlatformMBeanServer();
-        bean = new SimpleBean();
-        // START SNIPPET: e2
-        server.registerMBean(bean, new ObjectName("jmxExample", "name", "simpleBean"));
-        // END SNIPPET: e2
-        LocateRegistry.createRegistry(8081);
-        JMXServiceURL url = new JMXServiceURL
-                ("service:jmx:rmi:///jndi/rmi://localhost:8081/jmxrmi");
-        JMXConnectorServer jcs = JMXConnectorServerFactory.newJMXConnectorServer(url, null, server);
-        jcs.start();
-    }
     public void configure() {
 
         // here is a sample which processes the input files
