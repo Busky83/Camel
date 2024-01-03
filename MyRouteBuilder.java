@@ -59,7 +59,7 @@ public class MyRouteBuilder extends RouteBuilder {
             .to("ftp://pure-ftpd:21/?autoCreate=false&username=user&password=123456&binary=true")
             .log("Uploaded file ${file:name} complete.");  
 
-        // Minio
+        // Minio Download
         String endpoint = "http://192.168.1.123:9090";
         String accessKey = "minio";
         String secretKey = "minio@123";
@@ -97,6 +97,49 @@ public class MyRouteBuilder extends RouteBuilder {
 
         from("timer://myTimer?period=5000")
             .to("direct:minioToLocal");
+
+        // Minio Upload
+        from("file:C:/path/to/local/directory?noop=true") 
+            .process(exchange -> {
+                String filePath = exchange.getIn().getHeader("CamelFileAbsolutePath", String.class);
+                uploadToMinio(filePath);
+            })
+            .to("log:Minio-Camel-Route");
     }
+
+    private void uploadToMinio(String filePath) {
+        String endpoint = "http://192.168.1.123:9090";
+        String accessKey = "minio";
+        String secretKey = "minio@123";
+        String bucketName = "camel";
+        String objectName = filePath.substring(filePath.lastIndexOf("/") + 1); // 使用文件名作为 MinIO 对象名
+
+        try {
+            // 创建 Minio 客户端
+            MinioClient minioClient = new MinioClient.Builder()
+                    .endpoint(endpoint)
+                    .credentials(accessKey, secretKey)
+                    .build();
+
+            // 检查 Bucket 是否存在，如果不存在则创建
+            boolean bucketExists = minioClient.bucketExists(bucketName);
+            if (!bucketExists) {
+                minioClient.makeBucket(bucketName);
+            }
+
+            // 上传文件
+            minioClient.uploadObject(
+                    UploadObjectArgs.builder()
+                            .bucket(bucketName)
+                            .object(objectName)
+                            .filename(filePath)
+                            .build()
+            );
+
+            System.out.println("File uploaded successfully to Minio!");
+        } catch (InvalidKeyException | IOException | NoSuchAlgorithmException | InsufficientDataException | InternalException | InvalidResponseException | ServerException | XmlParserException | ErrorResponseException | IllegalArgumentException e) {
+            e.printStackTrace();
+        }
+    }    
 
 }
