@@ -39,8 +39,8 @@
         "ExecIDs": null,
         "HostConfig": {
             "Binds": [
-                "/Users/chouchengyan/研究所/分散式系統/HW/Final-Project/git-camel/minio/minio_config:/root/.minio",
-                "/Users/chouchengyan/研究所/分散式系統/HW/Final-Project/git-camel/minio/minio_data:/data"
+                "./minio_config:/root/.minio",
+                "./minio_data:/data"
             ],
             "ContainerIDFile": "",
             "LogConfig": {
@@ -156,7 +156,7 @@
         "Mounts": [
             {
                 "Type": "bind",
-                "Source": "/Users/chouchengyan/研究所/分散式系統/HW/Final-Project/git-camel/minio/minio_config",
+                "Source": "./minio_config",
                 "Destination": "/root/.minio",
                 "Mode": "",
                 "RW": true,
@@ -164,7 +164,7 @@
             },
             {
                 "Type": "bind",
-                "Source": "/Users/chouchengyan/研究所/分散式系統/HW/Final-Project/git-camel/minio/minio_data",
+                "Source": "./minio_data",
                 "Destination": "/data",
                 "Mode": "",
                 "RW": true,

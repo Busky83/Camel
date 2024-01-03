@@ -26,6 +26,14 @@
         <scope>import</scope>
         <type>pom</type>
       </dependency>
+
+      <dependency>
+          <groupId>org.apache.camel</groupId>
+          <artifactId>camel-bom</artifactId>
+          <version>2.25.4</version>
+          <type>pom</type>
+          <scope>import</scope>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
@@ -35,8 +43,24 @@
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-core</artifactId>
     </dependency>
+
+    <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-spring-main</artifactId>
+        <version>3.2.0</version>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-spring-xml</artifactId>
+        <version>3.9.0</version>
+    </dependency>
+
+    <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-jmx</artifactId>
+    </dependency>
 	
-	<dependency>
+	  <dependency>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-http4</artifactId>
         <version>2.25.4</version>
@@ -53,6 +77,12 @@
 		<artifactId>camel-mqtt</artifactId>
 		<version>2.25.4</version>
 	</dependency>
+
+  <dependency>
+    <groupId>io.minio</groupId>
+    <artifactId>minio</artifactId>
+    <version>8.1.0</version>
+  </dependency>
 	
 	<dependency>
 		<groupId>org.apache.camel</groupId>
@@ -95,6 +125,12 @@
       <artifactId>camel-test</artifactId>
       <scope>test</scope>
     </dependency>
+    <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-test-spring-junit5</artifactId>
+        <scope>test</scope>
+        <version>3.0.0-RC2</version>
+    </dependency>
   </dependencies>
 
   <build>
@@ -130,6 +166,12 @@
         </configuration>
       </plugin>
 
+        <!-- Allows the routes to be run via 'mvn camel:run' -->
+        <plugin>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-maven-plugin</artifactId>
+            <version>$2.25.4</version>
+        </plugin>
     </plugins>
   </build>
 
