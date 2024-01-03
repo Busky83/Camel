@@ -2,6 +2,7 @@ package com.example;
 
 import org.apache.camel.builder.RouteBuilder;
 import io.minio.MinioClient;
+import org.apache.camel.model.dataformat.JsonLibrary;
 
 /**
  * A Camel Java DSL Router
@@ -52,12 +53,20 @@ public class MyRouteBuilder extends RouteBuilder {
         // from("http4://localhost:80/sea/v2/seascore/test_jude_1/1")
         //     .log("Response from Django API: ${body}");
 
-        // MQTT to Django
+        // From MQTT
         from("mqtt:foo?host=tcp://mosquitto:1883&subscribeTopicName=Try/MQTT")
             .log("MQTT message received: ${body}")
-            // .to("direct:mqtt");
+            .setProperty("originalBody").body()
+            .unmarshal().json(JsonLibrary.Jackson)
+            .setProperty("uuid").simple("${body[uuid]}")
+            .marshal().json(JsonLibrary.Jackson)
             .to("http4://10.109.101.74:5500/insertAlter")
-            .log("Response from Flask API: ${body}");
+            .log("Response from Flask API: ${body}")
+            .setBody().exchangeProperty("originalBody")
+            .unmarshal().json(JsonLibrary.Jackson)
+            .transform().simple("${body[timestamp]}\\n${body[temperature]}")
+            .toD("file:target/upload?fileName=${exchangeProperty.uuid}.txt")
+            .log("File created in local directory");
         
         // FTP
         from("file:target/upload?moveFailed=../error")
