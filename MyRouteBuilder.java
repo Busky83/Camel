@@ -1,6 +1,7 @@
 package com.example;
 
 import org.apache.camel.builder.RouteBuilder;
+import io.minio.MinioClient;
 
 /**
  * A Camel Java DSL Router
@@ -63,6 +64,45 @@ public class MyRouteBuilder extends RouteBuilder {
             .log("Uploading file ${file:name}")
             .to("ftp://pure-ftpd:21/?autoCreate=false&username=user&password=123456&binary=true")
             .log("Uploaded file ${file:name} complete.");  
+
+        // Minio
+        String endpoint = "http://localhost:9000";
+        String accessKey = "minio";
+        String secretKey = "minio@123";
+        String bucketName = "camel";
+        String objectName = "example.txt";
+        String localDirectory = "D:/test";
+        MinioClient minioClient = new MinioClient.Builder()
+            .endpoint(endpoint)
+            .credentials(accessKey, secretKey)
+            .build();
+        from("direct:minioToLocal")
+            .process(exchange -> {
+                try {
+                    InputStream inputStream = minioClient.getObject(
+                        GetObjectArgs.builder()
+                            .bucket(bucketName)
+                            .object(objectName)
+                            .build()
+                    );
+
+                    String localFilePath = localDirectory + "/" + objectName;
+                    try (FileOutputStream outputStream = new FileOutputStream(localFilePath)) {
+                        byte[] buffer = new byte[1024];
+                        int bytesRead;
+                        while ((bytesRead = inputStream.read(buffer)) != -1) {
+                            outputStream.write(buffer, 0, bytesRead);
+                        }
+                    }
+                    exchange.getIn().setBody("File transferred successfully");
+                } catch (MinioException e) {
+                    exchange.setException(e);
+                }
+            })
+            .to("log:MinioToLocal-Log");
+
+        from("timer://myTimer?period=5000")
+            .to("direct:minioToLocal");
     }
 
 }
