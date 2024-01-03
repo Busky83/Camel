@@ -11,7 +11,7 @@ services:
     #command: /bin/sh -c "sleep 10 && mosquitto_pub -h camel -t mytopic -m 'Hello from Mosquitto'"
 
   camel:
-    image: gondor32/camel-maven:v4
+    image: gondor32/camel-maven:v6
     volumes:
       - ./pom.xml:/root/camel_final/camel_pro/pom.xml
       - ./MyRouteBuilder.java:/root/camel_final/camel_pro/src/main/java/com/example/MyRouteBuilder.java
@@ -38,6 +38,7 @@ services:
     depends_on:
      - camel
      - mosquitto
+     - ftpd_server
 
   ftpd_server:
     image: stilliard/pure-ftpd
