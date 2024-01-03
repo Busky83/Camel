@@ -7,6 +7,13 @@
 |周正晏|資科碩專二|111971003|
 |施宗佑|資科碩專二|111971005|
 |胡元亨|資科碩專二|111971024|
+
+## 使用流程
+git clone https://github.com/Busky83/Camel.git
+sh flask/db/db.sh
+python flask/main.py
+docker-compose -f docker-compose-camel.yml up --build
+
 ## Flask
 啟動Flask前，須確保本地有PostgreSQL或是利用以下指令建立容器快速啟動
 ```
