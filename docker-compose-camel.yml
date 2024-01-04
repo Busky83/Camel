@@ -33,6 +33,7 @@ services:
     build: 
       context: ./
       dockerfile: Dockerfile.mqtt
+    tty: true
     networks:
       - mynetwork
     #command: /bin/sh -c "sleep 10 && mosquitto_pub -h camel -t mytopic -m 'Hello from Mosquitto'"

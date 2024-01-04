@@ -3,4 +3,4 @@ FROM python:3.8
 COPY mqtt.py /tmp/mqtt.py
 RUN pip install paho-mqtt
 
-CMD ["python", "/tmp/mqtt.py"]
+#CMD ["python", "/tmp/mqtt.py"]
