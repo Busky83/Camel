@@ -22,13 +22,6 @@ import io.minio.BucketExistsArgs;
 import io.minio.MakeBucketArgs;
 
 
-import java.lang.management.ManagementFactory;
-
-import javax.management.MBeanServer;
-import javax.management.ObjectName;
-
-import org.apache.camel.builder.RouteBuilder;
-
 
 /**
  * A Camel Java DSL Router
@@ -39,6 +32,11 @@ public class MyRouteBuilder extends RouteBuilder {
      * Let's configure the Camel routing rules using Java code...
      */
     public void configure() {
+
+        String externalWifiIp = System.getenv("EXTERNAL_WIFI_IP");
+        if (externalWifiIp == null) {
+            externalWifiIp = "127.0.0.1";
+        }
 
         // here is a sample which processes the input files
         // (leaving them in place - see the 'noop' flag)
@@ -53,34 +51,51 @@ public class MyRouteBuilder extends RouteBuilder {
         //             .to("file:target/messages/others");
 
         // Timer
-        from("timer:foo?period=5000")
-            // .log("start");
-            .log("Hello World!");
+        // from("timer:foo?period=5000")
+        //     // .log("start");
+        //     .log("Hello World!");
 
 
         // From MQTT
         from("mqtt:foo?host=tcp://mosquitto:1883&subscribeTopicName=Try/MQTT")
             .log("MQTT message received: ${body}")
-            .setProperty("originalBody").body()
+            .setProperty("originalBody").body() // 保存原始消息体
             .unmarshal().json(JsonLibrary.Jackson)
             .setProperty("uuid").simple("${body[uuid]}")
+            .setProperty("temperature").simple("${body[temperature]}")
             .marshal().json(JsonLibrary.Jackson)
-            .to("http4://192.168.1.123:5500/insertAlter")
+            .to("http4://" + externalWifiIp + ":5500/insertAlter")
             .log("Response from Flask API: ${body}")
-            .setBody().exchangeProperty("originalBody")
+            .setBody().exchangeProperty("originalBody") // 恢复原始消息体
+            // .setBody().simple("${body[timestamp]}\\n${body[temperature]}")
             .unmarshal().json(JsonLibrary.Jackson)
-            .transform().simple("${body[timestamp]}\\n${body[temperature]}")
-            .toD("file:target/upload?fileName=${exchangeProperty.uuid}.txt")
-            .log("File created in local directory");
+            .choice()
+                .when().simple("${exchangeProperty.temperature} > 25")
+                    .setBody().simple("${body[timestamp]}\\n${body[temperature]}")
+                    .to("file:target/upload/high-temp?fileName=${exchangeProperty.uuid}.txt")
+                .otherwise()
+                    .setBody().simple("${body[timestamp]}\\n${body[temperature]}")
+                    .to("file:target/upload/low-temp?fileName=${exchangeProperty.uuid}.txt")
+            .end();
+            
+            // .marshal().json(JsonLibrary.Jackson)
+            // .log("Sending to Flask API: ${body}") // 添加日志记录
+            
+
+            // .setBody().exchangeProperty("originalBody")
+            // .unmarshal().json(JsonLibrary.Jackson)
+            // .transform().simple("${body[timestamp]}\\n${body[temperature]}")
+            // .toD("file:target/upload?fileName=${exchangeProperty.uuid}.txt")
+            // .log("File created in local directory");
         
         // FTP
-        from("file:target/upload?moveFailed=../error")
+        from("file:target/upload/high-temp?moveFailed=../error")
             .log("Uploading file ${file:name}")
             .to("ftp://pure-ftpd:21/?autoCreate=false&username=user&password=123456&binary=true")
             .log("Uploaded file ${file:name} complete.");  
 
         // Minio Download
-        String endpoint = "http://192.168.1.123:9090";
+        String endpoint = "http://" + externalWifiIp + ":9090";
         String accessKey = "minio";
         String secretKey = "minio@123";
         String bucketName = "camel";
@@ -115,20 +130,20 @@ public class MyRouteBuilder extends RouteBuilder {
             })
             .to("log:MinioToLocal-Log");
 
-        from("timer://myTimer?period=5000")
-            .to("direct:minioToLocal");
+        // from("timer://myTimer?period=5000")
+        //     .to("direct:minioToLocal");
 
         // Minio Upload
-        from("file:target/upload?noop=true") 
+        from("file:target/upload/low-temp?noop=true") 
             .process(exchange -> {
                 String filePath = exchange.getIn().getHeader("CamelFileAbsolutePath", String.class);
-                uploadToMinio(filePath);
+                uploadToMinio(filePath, endpoint);
             })
             .to("log:Minio-Camel-Route");
     }
 
-    private void uploadToMinio(String filePath) {
-        String endpoint = "http://192.168.1.123:9090";
+    private void uploadToMinio(String filePath, String endpoint) {
+        // String endpoint = "http://192.168.1.123:9090";
         String accessKey = "minio";
         String secretKey = "minio@123";
         String bucketName = "camel";
