@@ -26,6 +26,7 @@ services:
     depends_on:
       - mosquitto
     environment:
+      EXTERNAL_WIFI_IP: 10.109.101.74
       MAVEN_OPTS: "-Djava.rmi.server.hostname=localhost -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.rmi.port=8082 -Dcom.sun.management.jmxremote.port=8082"
 
   mqtt:

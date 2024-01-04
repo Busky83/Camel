@@ -33,6 +33,11 @@ public class MyRouteBuilder extends RouteBuilder {
      */
     public void configure() {
 
+        String externalWifiIp = System.getenv("EXTERNAL_WIFI_IP");
+        if (externalWifiIp == null) {
+            externalWifiIp = "127.0.0.1";
+        }
+
         // here is a sample which processes the input files
         // (leaving them in place - see the 'noop' flag)
         // then performs content based routing on the message using XPath
@@ -59,7 +64,7 @@ public class MyRouteBuilder extends RouteBuilder {
             .setProperty("uuid").simple("${body[uuid]}")
             .setProperty("temperature").simple("${body[temperature]}")
             .marshal().json(JsonLibrary.Jackson)
-            .to("http4://192.168.1.123:5500/insertAlter")
+            .to("http4://" + externalWifiIp + ":5500/insertAlter")
             .log("Response from Flask API: ${body}")
             .setBody().exchangeProperty("originalBody") // 恢复原始消息体
             // .setBody().simple("${body[timestamp]}\\n${body[temperature]}")
@@ -90,7 +95,7 @@ public class MyRouteBuilder extends RouteBuilder {
             .log("Uploaded file ${file:name} complete.");  
 
         // Minio Download
-        String endpoint = "http://192.168.1.123:9090";
+        String endpoint = "http://" + externalWifiIp + ":9090";
         String accessKey = "minio";
         String secretKey = "minio@123";
         String bucketName = "camel";
@@ -132,13 +137,13 @@ public class MyRouteBuilder extends RouteBuilder {
         from("file:target/upload/low-temp?noop=true") 
             .process(exchange -> {
                 String filePath = exchange.getIn().getHeader("CamelFileAbsolutePath", String.class);
-                uploadToMinio(filePath);
+                uploadToMinio(filePath, endpoint);
             })
             .to("log:Minio-Camel-Route");
     }
 
-    private void uploadToMinio(String filePath) {
-        String endpoint = "http://192.168.1.123:9090";
+    private void uploadToMinio(String filePath, String endpoint) {
+        // String endpoint = "http://192.168.1.123:9090";
         String accessKey = "minio";
         String secretKey = "minio@123";
         String bucketName = "camel";
