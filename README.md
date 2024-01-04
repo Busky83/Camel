@@ -9,10 +9,22 @@
 |胡元亨|資科碩專二|111971024|
 
 ## 使用流程
+
+### 下載專案
+```
 git clone https://github.com/Busky83/Camel.git  
-sh flask/db/db.sh  
-python flask/main.py  
-docker-compose -f docker-compose-camel.yml up --build  
+cd Camel
+```
+
+### 更改環境變數(將camel服務的EXTERNAL_WIFI_IP改為本地機器Wi-Fi IPv4位址)
+```
+vim docker-compose-camel.yml
+```
+
+### 快速搭建
+```
+sh quick_start.sh
+```
 
 ## Flask
 啟動Flask前，須確保本地有PostgreSQL或是利用以下指令建立容器快速啟動
