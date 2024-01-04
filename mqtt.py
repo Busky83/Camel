@@ -4,6 +4,7 @@ import json
 import random
 import time
 
+
 test_data = [
     {
         "uuid": "A",
@@ -21,9 +22,7 @@ test_data = [
         "uuid": "D",
         "temperature": 40,
     },
-    
 ]
-
 
 def generate_message(uuid, temperature):
     return json.dumps({
@@ -39,10 +38,14 @@ def on_connect(client, userdata, flags, rc):
 
 client = mqtt.Client()
 client.on_connect = on_connect
-
 # client.connect("MQTT_SERVER_ADDRESS", MQTT_PORT, 60)
 client.connect("mosquitto", 1883, 60)
+while not client.is_connected():
+    print("Waiting for connection...")
+    time.sleep(1)
+    client.loop()
 
+# time.sleep(10)
 for i in range(4):
     message = generate_message(test_data[i]['uuid'], test_data[i]['temperature'])
     client.publish("Try/MQTT", message)
