@@ -8,7 +8,7 @@
 |施宗佑|資科碩專二|111971005|
 |胡元亨|資科碩專二|111971024|
 
-## 使用流程
+## Quick Start
 
 ### 下載專案
 ```
@@ -21,7 +21,7 @@ cd Camel
 vim docker-compose-camel.yml
 ```
 
-### 快速搭建
+### 架設專案
 ```
 sh quick_start.sh
 ```
