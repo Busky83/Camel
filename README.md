@@ -9,7 +9,9 @@
 |胡元亨|資科碩專二|111971024|
 
 ## 使用流程
+以下流程將分為全部專案測試以及個別元件說明
 
+## 專案測試
 ### 下載專案
 ```
 git clone https://github.com/Busky83/Camel.git  
@@ -25,7 +27,7 @@ vim docker-compose-camel.yml
 ```
 sh quick_start.sh
 ```
-
+## 各別元件說明
 ## Flask
 啟動Flask前，須確保本地有PostgreSQL或是利用以下指令建立容器快速啟動
 ```
