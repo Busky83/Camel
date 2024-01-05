@@ -147,22 +147,22 @@ public class MyRouteBuilder extends RouteBuilder {
         String accessKey = "minio";
         String secretKey = "minio@123";
         String bucketName = "camel";
-        String objectName = filePath.substring(filePath.lastIndexOf("/") + 1); // 使用文件名作为 MinIO 对象名
+        String objectName = filePath.substring(filePath.lastIndexOf("/") + 1); // 使用文件名作為 MiniO 對象名
 
         try {
-            // 创建 Minio 客户端
+            // 創建 Minio 客户端
             MinioClient minioClient = new MinioClient.Builder()
                     .endpoint(endpoint)
                     .credentials(accessKey, secretKey)
                     .build();
 
-            // 检查 Bucket 是否存在，如果不存在则创建
+            // Check Bucket 是否存在，如果不存在則創建
             // boolean bucketExists = minioClient.bucketExists(BucketExistsArgs.builder().bucket(bucketName).build());
             // if (!bucketExists) {
             //     minioClient.makeBucket(MakeBucketArgs.builder().bucket(bucketName).build());
             // }
 
-            // 上传文件
+            // 上傳文件
             minioClient.uploadObject(
                     UploadObjectArgs.builder()
                             .bucket(bucketName)

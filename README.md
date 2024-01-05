@@ -8,6 +8,13 @@
 |施宗佑|資科碩專二|111971005|
 |胡元亨|資科碩專二|111971024|
 
+## Prerequisites
+
+Docker & Docker-compose  
+Python3 & pip
+
+
+
 ## 使用流程
 以下流程將分為全部專案測試以及個別元件說明
 
@@ -18,12 +25,17 @@ git clone https://github.com/Busky83/Camel.git
 cd Camel
 ```
 
+### 安裝python套件
+```
+pip install -r flask/requirements.txt
+```
+
 ### 更改環境變數(將camel服務的EXTERNAL_WIFI_IP改為本地機器Wi-Fi IPv4位址)
 ```
 vim docker-compose-camel.yml
 ```
 
-### 快速搭建
+### 架設專案
 ```
 sh quick_start.sh
 ```
