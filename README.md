@@ -8,7 +8,11 @@
 |施宗佑|資科碩專二|111971005|
 |胡元亨|資科碩專二|111971024|
 
-## Quick Start
+## Prerequisites
+
+Docker & Docker-compose
+Python3 & pip
+
 
 ## Quick Start
 
