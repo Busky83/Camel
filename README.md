@@ -10,10 +10,17 @@
 
 ## Quick Start
 
+## Quick Start
+
 ### 下載專案
 ```
 git clone https://github.com/Busky83/Camel.git  
 cd Camel
+```
+
+### 安裝python套件
+```
+pip install -r flask/requirements.txt
 ```
 
 ### 更改環境變數(將camel服務的EXTERNAL_WIFI_IP改為本地機器Wi-Fi IPv4位址)
