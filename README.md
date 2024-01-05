@@ -8,7 +8,11 @@
 |施宗佑|資科碩專二|111971005|
 |胡元亨|資科碩專二|111971024|
 
-## Prerequisites
+## 架構圖
+
+![Uploading 截圖 2024-01-05 23.45.46.png…]()
+
+## 事前準備
 
 Docker & Docker-compose  
 Python3 & pip
